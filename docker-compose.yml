@@ -1,14 +1,6 @@
 version: '3.8'
 
 services:
-    mongodb:
-        container_name: mongodb
-        image: mongo:latest
-        restart: unless-stopped
-        ports:
-            - 27017:27017
-        volumes:
-            - db:/data/db
     app:
         container_name: api
         build:
@@ -26,13 +18,10 @@ services:
             - TOKEN=${TOKEN}
             - PORT=${PORT}
             - MONGODB_ENABLED=${MONGODB_ENABLED}
-            - MONGODB_URL=mongodb://mongodb:27017
+            - MONGODB_URL=${MONGODB_URL}
             - WEBHOOK_ENABLED=${WEBHOOK_ENABLED}
             - WEBHOOK_URL=${WEBHOOK_URL}
             - WEBHOOK_BASE64=${WEBHOOK_BASE64}
         volumes:
             - ./:/home/node/app
             - /home/node/app/node_modules/
-
-volumes:
-    db:
